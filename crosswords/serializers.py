@@ -192,6 +192,7 @@ class UserMainSerializer(serializers.ModelSerializer):
             if search_term := search_term_raw.strip().upper().lower():
                 qs = qs.filter(crosswords_grids__solution__contains=search_term)
         self.crosswords_grids.queryset = qs
+        return self
 
 
     class Meta:
