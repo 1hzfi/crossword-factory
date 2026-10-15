@@ -12,7 +12,7 @@ function OwnGrids() {
     useMemo(()=>{
         const loadGrids = async () => {
             const queryParam = keyWords.length ? 
-                `?q=${encodeURIComponent(keyWords.join(" ").toUpperCase().toLowerCase())}` :
+                `?q=${encodeURIComponent(keyWords.toUpperCase().toLowerCase())}` :
                 '';
             const r = await fetch(
                 `${import.meta.env.VITE_API_URL}/user/${username}/${queryParam}`,
