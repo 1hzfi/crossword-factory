@@ -43,7 +43,7 @@ function OwnGrids() {
                     <label className="form-label" />
                     <input class="form-control" placeholder="Mots Clefs" onChange={(e) => {
                         e.preventDefault();
-                        setKeyWords(this.value.toUpperCase().toLowerCase().split(" "));
+                        setKeyWords(e.target.value.toUpperCase().toLowerCase().split(" "));
                     }} />
                 </div>
                 { !!list.length ? (list.map(((e,idx)=>(
