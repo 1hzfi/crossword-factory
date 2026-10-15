@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react'
+import React, { useEffect, useState } from 'react'
 import useGlobalState from '../utils/useGlobalState'
 import { Link } from "react-router-dom";
 import LazyImage from "./LazyImage";
@@ -9,7 +9,7 @@ function OwnGrids() {
     const { username, api_token } = globalState.user;
     const [keyWords, setKeyWords] = useState(['']);
 
-    useMemo(()=>{
+    useState(()=>{
         const loadGrids = async () => {
             const queryParam = keyWords.length ? 
                 `?q=${encodeURIComponent(keyWords.join(" ").toUpperCase().toLowerCase())}` :
