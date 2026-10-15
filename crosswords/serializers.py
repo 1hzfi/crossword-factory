@@ -185,14 +185,13 @@ class LatestGridListSerializer(serializers.ModelSerializer):
 
 class UserMainSerializer(serializers.ModelSerializer):
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        qs = Grid.objects.all()
-        search_terms = self.request.query_params.get("q", "")
+    def filter_by_query(self, query_params):
+        qs = self.crosswords_grids.queryset
+        search_terms = query_params
         for search_term_raw in search_terms.strip().split(" "):
             if search_term := search_term_raw.strip().upper().lower():
                 qs = qs.filter(crosswords_grids__solution__contains=search_term)
-        crosswords_grids = UserGridListSerializer(many=True, queryset=qs)
+        self.crosswords_grids.queryset = qs
 
 
     class Meta:
