@@ -8,32 +8,29 @@ function OwnGrids() {
     const [list, setList] = useState('');
     const { username, api_token } = globalState.user;
     const [keyWords, setKeyWords] = useState(['']);
-
-    useState(()=>{
+  
+    useMemo(()=>{
         const loadGrids = async () => {
             const queryParam = keyWords.length ? 
                 `?q=${encodeURIComponent(keyWords.join(" ").toUpperCase().toLowerCase())}` :
                 '';
-            try {
-                const r = await fetch(
-                    `${import.meta.env.VITE_API_URL}/user/${username}/${queryParam}`,
-                    {
-                        method: 'GET',
-                        credentials: 'omit',
-                        headers: {
-                            'Authorization': 'Token ' + api_token,
-                            'Content-Type': 'application/json'
-                        }
+            const r = await fetch(
+                `${import.meta.env.VITE_API_URL}/user/${username}/${queryParam}`,
+                {
+                    method: 'GET',
+                    credentials: 'omit',
+                    headers: {
+                        'Authorization': 'Token ' + api_token,
+                        'Content-Type': 'application/json'
                     }
-                );
-                const list = await r.json()
-                setList(list.crosswords_grids)
-            } catch(e) {
-                window.location = '/'
-            }
+                }
+            );
+            const list = await r.json()
+            setList(list.crosswords_grids);
+            return;
         }
-        (async () => (await loadGrids()))(); 
-    }, [api_token, username, keyWords])
+        return  (async () => (await loadGrids()))();
+    }, [keyWords, api_token, username])
 
     return (
         <div className="container main-container">
@@ -41,7 +38,7 @@ function OwnGrids() {
                 <div className="mb-3">
                     <form onSubmit={(e) => {
                         e.preventDefault();
-                        const qs = document.getElementById("searchInput").value.toUpperCase().toLowerCase().replaceAll(/[^a-z]/gi, '');
+                        const qs = document.getElementById("searchInput").value.toUpperCase().toLowerCase().replaceAll(/[^a-z\s]/gi, '');
                         console.log(qs);
                         setKeyWords(qs);
                         return;
