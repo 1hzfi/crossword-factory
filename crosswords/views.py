@@ -78,11 +78,6 @@ class UserDetail(generics.RetrieveAPIView):
         if username != self.request.user.username:
             return User.objects.none()
         qs = User.objects.filter(username=username)
-        search_terms = self.request.query_params.get("q", "")
-        for search_term_raw in search_terms.strip().split(" "):
-            search_term = search_term_raw.strip().upper().lower()
-            if search_term:
-                qs &= Q(crosswords_grids__solution__contains=search_term)
         return qs
 
 
