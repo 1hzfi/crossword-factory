@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import useGlobalState from '../utils/useGlobalState'
 import { Link } from "react-router-dom";
 import LazyImage from "./LazyImage";
