@@ -41,7 +41,7 @@ function OwnGrids() {
                 <div className="mb-3">
                     <form onSubmit={(e) => {
                         e.preventDefault();
-                        setKeyWords(document.getElementById("searchInput").value.toUpperCase().toLowerCase().replaceAll(/[^a-z]/i, '').split(" "));
+                        setKeyWords(document.getElementById("searchInput").value.toUpperCase().toLowerCase().replaceAll(/[^a-z]/gi, '').split(" "));
                         return;
                     }}>
                         <label className="form-label" />
