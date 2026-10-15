@@ -38,6 +38,6 @@ class Grid(models.Model):
         return sol_d == hash
 
     class Meta:
-        ordering = ['-creation_date']
+        ordering = ['-creation_date'] # TODO: Use '-pk'
         verbose_name = 'grid'
         verbose_name_plural = 'grids'
