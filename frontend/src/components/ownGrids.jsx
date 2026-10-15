@@ -12,7 +12,7 @@ function OwnGrids() {
     useMemo(()=>{
         const loadGrids = async () => {
             const queryParam = keyWords.length ? 
-                `?q=${encodeURIComponent(keyWords.replaceAll(/[^a-z]/i, '').join(" ").toUpperCase().toLowerCase())}` :
+                `?q=${encodeURIComponent(keyWords.join(" ").toUpperCase().toLowerCase())}` :
                 '';
             try {
                 const r = await fetch(
@@ -43,7 +43,7 @@ function OwnGrids() {
                     <label className="form-label" />
                     <input class="form-control" placeholder="Mots Clefs" onChange={(e) => {
                         e.preventDefault();
-                        setKeyWords(e.target.value.toUpperCase().toLowerCase().split(" "));
+                        setKeyWords(e.target.value.toUpperCase().toLowerCase().replaceAll(/[^a-z]/i, '').split(" "));
                     }} />
                 </div>
                 { !!list.length ? (list.map(((e,idx)=>(
