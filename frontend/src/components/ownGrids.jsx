@@ -33,7 +33,7 @@ function OwnGrids() {
             }
         }
         (async () => (await loadGrids()))(); 
-    }, [api_token, username, keyWords])
+    }, [api_token, username, keyWords.join(" ")])
 
     return (
         <div className="container main-container">
