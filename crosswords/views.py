@@ -82,7 +82,7 @@ class UserDetail(generics.RetrieveAPIView):
         for search_term_raw in search_terms.strip().split(" "):
             search_term = search_term_raw.strip().upper().lower()
             if search_term:
-                qs &= Q(crosswords_grids__solution__icontains=search_term)
+                qs &= Q(crosswords_grids__solution__contains=search_term)
         return qs
 
 
