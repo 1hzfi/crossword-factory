@@ -16,7 +16,7 @@ function OwnGrids() {
                 '';
             try {
                 const r = await fetch(
-                    `${import.meta.env.VITE_API_URL}/user/${username}${queryParam}`,
+                    `${import.meta.env.VITE_API_URL}/user/${username}/${queryParam}`,
                     {
                         method: 'GET',
                         credentials: 'omit',
