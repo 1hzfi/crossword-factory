@@ -33,7 +33,7 @@ function OwnGrids() {
             }
         }
         (async () => (await loadGrids()))(); 
-    }, [api_token, username, keyWords.join(" ")])
+    }, [api_token, username, keyWords])
 
     return (
         <div className="container main-container">
@@ -41,12 +41,14 @@ function OwnGrids() {
                 <div className="mb-3">
                     <form onSubmit={(e) => {
                         e.preventDefault();
-                        setKeyWords(document.getElementById("searchInput").value.toUpperCase().toLowerCase().replaceAll(/[^a-z]/gi, '').split(" "));
+                        const qs = document.getElementById("searchInput").value.toUpperCase().toLowerCase().replaceAll(/[^a-z]/gi, '');
+                        console.log(qs);
+                        setKeyWords(qs);
                         return;
                     }}>
                         <label className="form-label" />
                         <input id="searchInput" class="form-control" placeholder="Mots Clefs"/>
-                        <button className="btn btn-primary">Lancer la recherche</button>
+                        <button type="submit" className="btn btn-primary">Lancer la recherche</button>
                     </form>
                 </div>
                 { !!list.length ? (list.map(((e,idx)=>(
