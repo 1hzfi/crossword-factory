@@ -77,14 +77,7 @@ class UserDetail(generics.RetrieveAPIView):
         username = self.kwargs['username']
         if username != self.request.user.username:
             return User.objects.none()
-        qs = User.objects.filter(username=username)
-        return qs
-
-    #def get_serializer_class(self, *args, **kwargs):
-    #    sc = super().get_serializer_class(*args, **kwargs)
-    #    if q := self.request.query_params.get("q", ""):
-    #        return sc.filter_by_query(q)
-    #    return sc
+        return User.objects.filter(username=username)
 
 
 class GridDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -128,6 +121,8 @@ def check_grid_solution(request, uid):
     if grid.check_solution(submited_solution_hash):
         return Response({'is_ok': True, 'solution': grid.solution, 'width': grid.width, 'height': grid.height})
     return Response({'is_ok': False})
+
+
 
 
 class EmailsView(generics.ListCreateAPIView):

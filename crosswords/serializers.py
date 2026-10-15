@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 from django.utils.safestring import mark_safe
-from django.db.models import Q
+
 from allauth.account.models import EmailAddress
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
@@ -184,17 +184,8 @@ class LatestGridListSerializer(serializers.ModelSerializer):
 
 
 class UserMainSerializer(serializers.ModelSerializer):
-
-    def filter_by_query(self, query_params):
-        qs = self.crosswords_grids.queryset
-        search_terms = query_params
-        for search_term_raw in search_terms.strip().split(" "):
-            if search_term := search_term_raw.strip().upper().lower():
-                qs = qs.filter(crosswords_grids__solution__contains=search_term)
-        self.crosswords_grids.queryset = qs
-        return self
-
-
+    #latest_routes = serializers.SerializerMethodField()
+    crosswords_grids = UserGridListSerializer(many=True)
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'crosswords_grids')
