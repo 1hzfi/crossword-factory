@@ -7,11 +7,11 @@ function OwnGrids() {
     const globalState = useGlobalState();
     const [list, setList] = useState('');
     const { username, api_token } = globalState.user;
-    const [keyWords, setKeyWords] = useState(['']);
+    const [keyWords, setKeyWords] = useState('');
   
     useMemo(()=>{
         const loadGrids = async () => {
-            const queryParam = keyWords.length ? 
+            const queryParam = keyWords.length > 0 ? 
                 `?q=${encodeURIComponent(keyWords.toUpperCase().toLowerCase())}` :
                 '';
             const r = await fetch(
