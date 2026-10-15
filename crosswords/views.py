@@ -82,7 +82,7 @@ class UserDetail(generics.RetrieveAPIView):
 
     def get_serializer_class(self, *args, **kwargs):
         sc = super().get_serializer_class(*args, **kwargs)
-        if q := self.query_params.get("q", ""):
+        if q := self.request.query_params.get("q", ""):
             return sc.filter_by_query(q)
         return sc
 
