@@ -40,11 +40,15 @@ function OwnGrids() {
             
             <div className="row">
                 <div className="mb-3">
-                    <label className="form-label" />
-                    <input class="form-control" placeholder="Mots Clefs" onChange={(e) => {
+                    <form onSubmit={(e) => {
                         e.preventDefault();
-                        setKeyWords(e.target.value.toUpperCase().toLowerCase().replaceAll(/[^a-z]/i, '').split(" "));
-                    }} />
+                        setKeyWords(window.getElementById("searchInput").value.toUpperCase().toLowerCase().replaceAll(/[^a-z]/i, '').split(" "));
+                        return;
+                    }}>
+                        <label className="form-label" />
+                        <input id="searchInput" class="form-control" placeholder="Mots Clefs"/>
+                        <button className="btn btn-primary">Lancer la recherche</button>
+                    </form>
                 </div>
                 { !!list.length ? (list.map(((e,idx)=>(
                 <div key={e.id} className="col-12 col-sm-6 col-md-3">
