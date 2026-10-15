@@ -37,12 +37,11 @@ function OwnGrids() {
 
     return (
         <div className="container main-container">
-            
             <div className="row">
                 <div className="mb-3">
                     <form onSubmit={(e) => {
                         e.preventDefault();
-                        setKeyWords(window.getElementById("searchInput").value.toUpperCase().toLowerCase().replaceAll(/[^a-z]/i, '').split(" "));
+                        setKeyWords(document.getElementById("searchInput").value.toUpperCase().toLowerCase().replaceAll(/[^a-z]/i, '').split(" "));
                         return;
                     }}>
                         <label className="form-label" />
