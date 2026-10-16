@@ -77,7 +77,20 @@ class UserDetail(generics.RetrieveAPIView):
         username = self.kwargs['username']
         if username != self.request.user.username:
             return User.objects.none()
-        return User.objects.filter(username=username)
+        
+        queryset = User.objects.filter(username=username)
+
+        keywords = self.request.query_params.get('q', '').upper().lower().split(" ")
+        if keywords:
+            filtered_grids = Grid.objects.filter(author=self.request.user)
+            for keyword in keywords:
+                filtered_grids = filtered_grids.filter(solution__icontains=keyword)
+            queryset = queryset.prefetch_related(
+                Prefetch('grids', queryset=filtered_tracks)
+            )
+        else:
+            queryset = queryset.prefetch_related('grids')
+        return queryset
 
 
 class GridDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -185,7 +198,7 @@ def preview_pic(request, uid):
     for y in range(grid.height):
         draw.rectangle(((offset_x, offset_y), (offset_x + fw, offset_y + row_height * y)), outline="black", width=2)
     
-    font = ImageFont.truetype('times new roman.ttf', size=fw / grid.width * 0.8)  # size should be in points but I don't now, how to do it
+    font = ImageFont.truetype('times new roman.ttf', size=fw / grid.width * 0.8)  # size should be in points but I don't know, how to do it
             
     letters = list(set(list(grid.solution)))
     letters_size = {}
