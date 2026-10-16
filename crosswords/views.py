@@ -5,6 +5,7 @@ from django.contrib.auth.signals import user_logged_in
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
+from django.db.models import Prefetch
 
 from knox.models import AuthToken
 from io import BytesIO
