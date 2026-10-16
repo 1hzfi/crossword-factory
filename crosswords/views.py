@@ -87,7 +87,7 @@ class UserDetail(generics.RetrieveAPIView):
             for keyword in keywords:
                 filtered_grids = filtered_grids.filter(solution__icontains=keyword)
             queryset = queryset.prefetch_related(
-                Prefetch('grids', queryset=filtered_tracks)
+                Prefetch('grids', queryset=filtered_grids)
             )
         else:
             queryset = queryset.prefetch_related('grids')
