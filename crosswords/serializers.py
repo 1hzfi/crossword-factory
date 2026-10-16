@@ -184,8 +184,6 @@ class LatestGridListSerializer(serializers.ModelSerializer):
 
 
 class UserMainSerializer(serializers.ModelSerializer):
-    #latest_routes = serializers.SerializerMethodField()
-    def __init__(self, keywords, )
     crosswords_grids = UserGridListSerializer(many=True, read_only=True)
     class Meta:
         model = User
